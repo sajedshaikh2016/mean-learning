@@ -24,6 +24,7 @@ export class PostCreateComponent implements OnInit {
   onSubmit() {
     console.log(this.postForm);
     this._postsService.addPosts(this.postForm.controls.title.value, this.postForm.controls.content.value);
+    this.postForm.reset();
   }
 
 }

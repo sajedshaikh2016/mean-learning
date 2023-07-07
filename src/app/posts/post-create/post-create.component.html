@@ -2,7 +2,8 @@
     <form [formGroup]="postForm" (ngSubmit)="onSubmit()" autocomplete="off">
         <mat-card-content>
             <mat-form-field>
-                <input matInput type="text" formControlName="title" required>
+                <mat-label>Post Title</mat-label>
+                <input matInput type="text" placeholder="" formControlName="title" required>
                 <div *ngIf="postForm.controls.title.invalid && 
                     (postForm.controls.title.dirty || postForm.controls.title.touched)">
                     <mat-error *ngIf="postForm.controls.title.errors.required">
@@ -18,7 +19,8 @@
             </mat-form-field>
 
             <mat-form-field>
-                <textarea matInput rows="4" formControlName="content" required></textarea>
+                <mat-label>Post Content</mat-label>
+                <textarea matInput rows="4" placeholder="" formControlName="content" required></textarea>
                 <div *ngIf="postForm.controls.content.invalid && 
                     (postForm.controls.content.dirty || postForm.controls.content.touched)">
                     <mat-error *ngIf="postForm.controls.content.errors.required">
