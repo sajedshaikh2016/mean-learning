@@ -36,7 +36,21 @@ export class PostsService {
 
   addPosts(title: string, content: string) {
     const post: Post = { id: '', title: title, content: content };
-    this.posts.push(post);
-    this.postsUpdated.next([...this.posts]);
+    this.http.post<{ message: string }>('http://localhost:8000/api/posts', post)
+      .subscribe({
+        next: (response) => {
+          console.log(response.message);
+          this.posts.push(post);
+          this.postsUpdated.next([...this.posts]);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          console.info("Subscribe complete.");
+        }
+      });
+
+
   }
 }
