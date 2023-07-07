@@ -1,5 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { PostListComponent } from './post-list.component';
 
 describe('PostListComponent', () => {
@@ -8,11 +7,18 @@ describe('PostListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PostListComponent]
+      declarations: [PostListComponent],
+      providers: [
+        { provide: ComponentFixtureAutoDetect, useValue: true }
+      ]
     });
     fixture = TestBed.createComponent(PostListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    component.ngOnDestroy();
   });
 
   it('should create', () => {
