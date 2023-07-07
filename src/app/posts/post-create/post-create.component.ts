@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Post } from '../post.model';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-post-create',
@@ -10,9 +11,8 @@ import { Post } from '../post.model';
 export class PostCreateComponent implements OnInit {
 
   public postForm!: any;
-  @Output() postCreated = new EventEmitter<Post>();
 
-  constructor(private _formBuilder: FormBuilder) { }
+  constructor(private _formBuilder: FormBuilder, public _postsService: PostsService) { }
 
   ngOnInit(): void {
     this.postForm = this._formBuilder.nonNullable.group({
@@ -23,11 +23,7 @@ export class PostCreateComponent implements OnInit {
 
   onSubmit() {
     console.log(this.postForm);
-    const post: Post = {
-      title: this.postForm.controls.title.value,
-      content: this.postForm.controls.content.value
-    }
-    this.postCreated.emit(post);
+    this._postsService.addPosts(this.postForm.controls.title.value, this.postForm.controls.content.value);
   }
 
 }
