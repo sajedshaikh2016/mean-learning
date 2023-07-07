@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../post.model';
 
 @Component({
@@ -6,7 +6,7 @@ import { Post } from '../post.model';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent {
+export class PostListComponent implements OnInit {
 
   panelOpenState = false;
 
@@ -17,5 +17,9 @@ export class PostListComponent {
   // ];
 
   @Input() posts: Post[] = [];
+
+  ngOnInit() {
+    console.log("this.posts", this.posts);
+  }
 
 }
