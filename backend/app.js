@@ -10,7 +10,7 @@ const port = 3000;
 
 
 
-mongoose.connect("mongodb+srv://sajedshaikh:eNnISogWd0d8qqQl@cluster0.1csszq1.mongodb.net/?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://sajedshaikh:eNnISogWd0d8qqQl@cluster0.1csszq1.mongodb.net/node-angular?retryWrites=true&w=majority")
     .then(() => {
         console.log("Connected to database!");
     })
@@ -35,6 +35,7 @@ app.post('/api/posts', (req, res, next) => {
         content: req.body.content
     });
     console.log(post);
+    post.save();
     res.status(201).json({
         message: 'Post added sucessfully!'
     });
@@ -42,27 +43,35 @@ app.post('/api/posts', (req, res, next) => {
 
 
 app.use('/api/posts', (req, res, next) => {
-    const posts = [
-        {
-            id: 'sfsd423423',
-            title: "First server-side post",
-            content: 'This is coming from the server'
-        },
-        {
-            id: 'jtyrrtjty',
-            title: "Second server-side post",
-            content: 'This is coming from the server'
-        },
-        {
-            id: '35hfggh',
-            title: "Third server-side post",
-            content: 'This is coming from the server'
-        }
-    ];
-    res.status(200).json({
-        message: 'Posts fetched sucessfully!',
-        posts: posts
-    });
+    // const posts = [
+    //     {
+    //         id: 'sfsd423423',
+    //         title: "First server-side post",
+    //         content: 'This is coming from the server'
+    //     },
+    //     {
+    //         id: 'jtyrrtjty',
+    //         title: "Second server-side post",
+    //         content: 'This is coming from the server'
+    //     },
+    //     {
+    //         id: '35hfggh',
+    //         title: "Third server-side post",
+    //         content: 'This is coming from the server'
+    //     }
+    // ];
+
+    Post.find()
+        .then((documents) => {
+            res.status(200).json({
+                message: 'Posts fetched sucessfully!',
+                posts: documents
+            });
+        })
+        .catch(() => {
+
+        });
+
 });
 
 module.exports = app;
