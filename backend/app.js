@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const Post = require('./models/post');
 
 const app = express();
-const port = 3000;
+const port = 8000;
 
 mongoose.connect("mongodb+srv://sajedshaikh:eNnISogWd0d8qqQl@cluster0.1csszq1.mongodb.net/node-angular?retryWrites=true&w=majority")
     .then(() => {
@@ -32,15 +32,17 @@ app.post('/api/posts', (req, res, next) => {
         title: req.body.title,
         content: req.body.content
     });
-    console.log(post);
-    post.save();
-    res.status(201).json({
-        message: 'Post added sucessfully!'
+    post.save().then((createdPost) => {
+        res.status(201).json({
+            message: 'Post added sucessfully!',
+            postId: createdPost._id
+        });
     });
+
 });
 
 
-app.use('/api/posts', (req, res, next) => {
+app.get('/api/posts', (req, res, next) => {
     Post.find()
         .then((documents) => {
             res.status(200).json({
@@ -51,6 +53,15 @@ app.use('/api/posts', (req, res, next) => {
         .catch(() => {
 
         });
+});
+
+
+app.delete('/api/posts/:id', (req, res, next) => {
+    console.log("req.params.id", req.params.id);
+    Post.deleteOne({ _id: req.params.id }).then((result) => {
+        console.log(result);
+        res.status(200).json({ message: 'Post deleted!' });
+    });
 });
 
 module.exports = app;

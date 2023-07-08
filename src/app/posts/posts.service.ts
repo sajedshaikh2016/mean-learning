@@ -45,10 +45,11 @@ export class PostsService {
 
   addPosts(title: string, content: string) {
     const post: Post = { id: '', title: title, content: content };
-    this.http.post<{ message: string }>('http://localhost:8000/api/posts', post)
+    this.http.post<{ message: string, postId: string }>('http://localhost:8000/api/posts', post)
       .subscribe({
-        next: (response) => {
-          console.log(response.message);
+        next: (responseData) => {
+          const id = responseData.postId;
+          post.id = id;
           this.posts.push(post);
           this.postsUpdated.next([...this.posts]);
         },
@@ -59,7 +60,16 @@ export class PostsService {
           console.info("Subscribe complete.");
         }
       });
-
-
   }
+
+
+  deletePost(postId: string) {
+    this.http.delete('http://localhost:8000/api/posts/' + postId)
+      .subscribe(() => {
+        const updatedPosts = this.posts.filter((post) => post.id !== postId);
+        this.posts = updatedPosts;
+        this.postsUpdated.next([...this.posts]);
+      });
+  }
+
 }
