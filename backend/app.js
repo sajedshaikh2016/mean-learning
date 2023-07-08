@@ -8,8 +8,6 @@ const Post = require('./models/post');
 const app = express();
 const port = 3000;
 
-
-
 mongoose.connect("mongodb+srv://sajedshaikh:eNnISogWd0d8qqQl@cluster0.1csszq1.mongodb.net/node-angular?retryWrites=true&w=majority")
     .then(() => {
         console.log("Connected to database!");
@@ -43,24 +41,6 @@ app.post('/api/posts', (req, res, next) => {
 
 
 app.use('/api/posts', (req, res, next) => {
-    // const posts = [
-    //     {
-    //         id: 'sfsd423423',
-    //         title: "First server-side post",
-    //         content: 'This is coming from the server'
-    //     },
-    //     {
-    //         id: 'jtyrrtjty',
-    //         title: "Second server-side post",
-    //         content: 'This is coming from the server'
-    //     },
-    //     {
-    //         id: '35hfggh',
-    //         title: "Third server-side post",
-    //         content: 'This is coming from the server'
-    //     }
-    // ];
-
     Post.find()
         .then((documents) => {
             res.status(200).json({
@@ -71,7 +51,6 @@ app.use('/api/posts', (req, res, next) => {
         .catch(() => {
 
         });
-
 });
 
 module.exports = app;
