@@ -1,5 +1,7 @@
 <mat-card>
-    <form [formGroup]="postForm" (ngSubmit)="onSavePost()" autocomplete="off">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+    <form [formGroup]="postForm" (ngSubmit)="onSavePost()" autocomplete="off" *ngIf="!isLoading">
         <mat-card-content>
             <mat-form-field>
                 <mat-label>Post Title</mat-label>
