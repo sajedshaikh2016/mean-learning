@@ -3,11 +3,12 @@
         *ngFor="let post of posts; let i = index">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                {{post?.title}} {{i}}
+                {{post?.title}}
+                <!-- {{i}} -->
             </mat-panel-title>
-            <mat-panel-description>
+            <!-- <mat-panel-description>
                 Currently I am {{panelOpenState ? 'open' : 'closed'}}
-            </mat-panel-description>
+            </mat-panel-description> -->
         </mat-expansion-panel-header>
         <p>{{post?.content}}</p>
 
