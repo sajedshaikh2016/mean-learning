@@ -21,24 +21,30 @@ export class PostCreateComponent implements OnInit {
     public _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.postForm = this._formBuilder.nonNullable.group({
       title: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
       content: ['', Validators.required]
     });
 
-
     this._activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('postId')) {
         this.mode = 'edit';
         this.postId = paramMap.get('postId');
-        this.post = this._postsService.getPost(this.postId);
-        this.postForm.controls.title.setValue(this.post.title);
-        this.postForm.controls.content.setValue(this.post.content);
+        this._postsService.getPost(this.postId).subscribe((postData) => {
+          this.post = {
+            id: postData._id,
+            title: postData.title,
+            content: postData.content
+          }
+          this.postForm.controls.title.setValue(this.post?.title);
+          this.postForm.controls.content.setValue(this.post?.content);
+        });
       } else {
         this.mode = 'create';
         this.postId = null;
       }
-    })
+    });
 
   }
 
