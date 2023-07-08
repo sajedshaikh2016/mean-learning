@@ -12,6 +12,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
 
@@ -22,6 +23,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         AppRoutingModule,
+        HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
         BrowserAnimationsModule,

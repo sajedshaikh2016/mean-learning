@@ -1,5 +1,6 @@
 import { ComponentFixture, ComponentFixtureAutoDetect, TestBed } from '@angular/core/testing';
 import { PostListComponent } from './post-list.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -8,6 +9,9 @@ describe('PostListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PostListComponent],
+      imports: [
+        HttpClientModule
+      ],
       providers: [
         { provide: ComponentFixtureAutoDetect, useValue: true }
       ]
