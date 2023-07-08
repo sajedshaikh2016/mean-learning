@@ -29,8 +29,9 @@
                 </div>
             </mat-form-field>
         </mat-card-content>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!postForm.valid">Save post</button>
+        <button class="save-post-button" mat-raised-button color="primary" type="submit"
+            [disabled]="!postForm.valid">Save post</button>
     </form>
 </mat-card>
 
-{{postForm.value | json}}
+<!-- {{postForm.value | json}} -->
