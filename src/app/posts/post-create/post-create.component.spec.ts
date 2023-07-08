@@ -9,6 +9,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 describe('PostCreateComponent', () => {
   let component: PostCreateComponent;
@@ -24,7 +26,9 @@ describe('PostCreateComponent', () => {
         MatCardModule,
         MatButtonModule,
         MatToolbarModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatProgressSpinnerModule,
+        RouterTestingModule
       ],
       declarations: [PostCreateComponent],
       providers: []
