@@ -63,13 +63,22 @@ router.put('/api/posts:id', multer({ storage: storage }).single("image"), (req, 
 });
 
 router.get('/api/posts', (req, res, next) => {
-    Post.find()
-        .then((documents) => {
-            res.status(200).json({
-                message: 'Posts fetched sucessfully!',
-                posts: documents
-            });
+    const pageSize = +req.query.pagesize;
+    const currentPage = +req.query.page;
+    const postQuery = Post.find();
+
+    if (pageSize && currentPage) {
+        postQuery
+            .skip(pageSize * (currentPage - 1))
+            .limit(pageSize);
+    }
+
+    postQuery.then((documents) => {
+        res.status(200).json({
+            message: 'Posts fetched sucessfully!',
+            posts: documents
         });
+    });
 });
 
 router.get('/api/posts/:id', (req, res, next) => {
